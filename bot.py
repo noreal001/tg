@@ -37,6 +37,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=reply_markup
     )
 
+async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Показать ID пользователя"""
+    user = update.effective_user
+    await update.message.reply_text(f"Ваш Telegram ID: `{user.id}`", parse_mode='Markdown')
+
 async def admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Админская панель"""
     user_id = update.effective_user.id
@@ -120,6 +125,7 @@ def main():
     
     # Добавляем обработчики
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("myid", myid))
     application.add_handler(CommandHandler("admin", admin))
     application.add_handler(CallbackQueryHandler(button_handler))
     
