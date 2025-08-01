@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <h1>🛍️ МАГАЗИН</h1>
+            <div class="header-actions">
+                <button id="cart-btn" class="cart-btn">🛒 <span id="cart-count">0</span></button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Categories -->
+            <section class="categories">
+                <h2>Категории</h2>
+                <div class="category-grid">
+                    <div class="category-card" data-category="oils">
+                        <div class="category-icon">🛢️</div>
+                        <h3>Масла</h3>
+                        <p>Натуральные масла</p>
+                    </div>
+                    <div class="category-card" data-category="bottles">
+                        <div class="category-icon">🧪</div>
+                        <h3>Флаконы</h3>
+                        <p>Стильные флаконы</p>
+                    </div>
+                    <div class="category-card" data-category="solutions">
+                        <div class="category-icon">💧</div>
+                        <h3>Растворы</h3>
+                        <p>Качественные растворы</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products -->
+            <section class="products" id="products-section" style="display: none;">
+                <div class="section-header">
+                    <button id="back-btn" class="back-btn">← Назад</button>
+                    <h2 id="category-title">Товары</h2>
+                </div>
+                <div class="products-grid" id="products-grid"></div>
+            </section>
+
+            <!-- Product Detail -->
+            <section class="product-detail" id="product-detail" style="display: none;">
+                <div class="section-header">
+                    <button id="back-to-products" class="back-btn">← Назад</button>
+                    <h2>Товар</h2>
+                </div>
+                <div class="product-detail-content" id="product-detail-content"></div>
+            </section>
+
+            <!-- Cart -->
+            <section class="cart" id="cart-section" style="display: none;">
+                <div class="section-header">
+                    <button id="back-to-main" class="back-btn">← Назад</button>
+                    <h2>Корзина</h2>
+                </div>
+                <div class="cart-content" id="cart-content"></div>
+            </section>
+
+            <!-- Checkout -->
+            <section class="checkout" id="checkout-section" style="display: none;">
+                <div class="section-header">
+                    <button id="back-to-cart" class="back-btn">← Назад</button>
+                    <h2>Оформление заказа</h2>
+                </div>
+                <div class="checkout-content" id="checkout-content"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html> 
