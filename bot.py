@@ -1,5 +1,5 @@
 import logging
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, BotCommand, MenuButton, MenuButtonWebApp, WebAppInfo
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from config import BOT_TOKEN, ADMIN_IDS
 from database import Database
@@ -34,6 +34,42 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     await update.message.reply_text(
         welcome_text,
+        reply_markup=reply_markup
+    )
+
+async def setup_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Установка меню бота"""
+    try:
+        # Устанавливаем команды бота
+        commands = [
+            BotCommand("start", "Запустить бота"),
+            BotCommand("shop", "Открыть магазин"),
+            BotCommand("myid", "Получить мой ID"),
+            BotCommand("admin", "Админ-панель")
+        ]
+        await context.bot.set_my_commands(commands)
+        
+        # Устанавливаем кнопку меню
+        menu_button = MenuButtonWebApp(
+            text="🛍️ Магазин",
+            web_app=WebAppInfo(url="https://tg-jc9m.onrender.com")
+        )
+        await context.bot.set_chat_menu_button(menu_button=menu_button)
+        
+        await update.message.reply_text("✅ Меню бота настроено! Теперь у вас есть кнопка '🛍️ Магазин' в чате.")
+        
+    except Exception as e:
+        await update.message.reply_text(f"❌ Ошибка настройки меню: {str(e)}")
+
+async def shop(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Команда для открытия магазина"""
+    keyboard = [
+        [InlineKeyboardButton("🛍️ Открыть магазин", web_app={"url": "https://tg-jc9m.onrender.com"})]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    
+    await update.message.reply_text(
+        "🛍️ Нажмите кнопку ниже, чтобы открыть магазин:",
         reply_markup=reply_markup
     )
 
@@ -125,6 +161,8 @@ def main():
     
     # Добавляем обработчики
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("setup_menu", setup_menu))
+    application.add_handler(CommandHandler("shop", shop))
     application.add_handler(CommandHandler("myid", myid))
     application.add_handler(CommandHandler("admin", admin))
     application.add_handler(CallbackQueryHandler(button_handler))
