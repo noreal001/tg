@@ -20,7 +20,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     # Создаем кнопку для запуска Mini App
     keyboard = [
-        [InlineKeyboardButton("🛍️ Открыть магазин", web_app={"url": "https://your-domain.com/shop"})]
+        [InlineKeyboardButton("🛍️ Открыть магазин", web_app={"url": "https://tg-jc9m.onrender.com"})]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     
