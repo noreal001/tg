@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Telegram Bot Token
-BOT_TOKEN = os.getenv('BOT_TOKEN', 'YOUR_BOT_TOKEN_HERE')
+BOT_TOKEN = os.getenv('TOKEN', os.getenv('BOT_TOKEN', 'YOUR_BOT_TOKEN_HERE'))
 
 # Database
 DATABASE_PATH = 'shop.db'
