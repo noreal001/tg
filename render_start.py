@@ -6,8 +6,6 @@
 
 import os
 import sys
-import threading
-import time
 from flask import Flask, send_from_directory
 from api_server import app as api_app
 from database import Database
@@ -32,12 +30,14 @@ def create_app():
     """Создаем объединенное приложение"""
     # Добавляем API маршруты к веб-приложению
     for rule in api_app.url_map.iter_rules():
-        web_app.add_url_rule(
-            rule.rule,
-            endpoint=rule.endpoint,
-            view_func=api_app.view_functions[rule.endpoint],
-            methods=rule.methods
-        )
+        # Пропускаем статические маршруты, чтобы избежать конфликтов
+        if rule.endpoint != 'static':
+            web_app.add_url_rule(
+                rule.rule,
+                endpoint=rule.endpoint,
+                view_func=api_app.view_functions[rule.endpoint],
+                methods=rule.methods
+            )
     return web_app
 
 if __name__ == '__main__':
